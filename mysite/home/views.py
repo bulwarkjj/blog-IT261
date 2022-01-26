@@ -8,11 +8,30 @@ from django.views.generic import UpdateView
 from django.contrib import messages
 
 
+
 def Profile(request):
     """
     Directs to user profile page 
     """
     return render(request, "profile.html")
+
+def edit_profile(request):
+    """
+    Allow user to edit profile 
+    """
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile(user=request.user)
+    if request.method=="POST":
+        form = ProfileForm(data=request.POST, files=request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            alert = True
+            return render(request, "edit_profile.html", {'alert':alert})
+    else:
+        form=ProfileForm(instance=profile)
+    return render(request, "edit_profile.html", {'form':form})
 
 def Register(request):
     """
