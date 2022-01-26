@@ -7,6 +7,13 @@ from .forms import ProfileForm, BlogPostForm
 from django.views.generic import UpdateView
 from django.contrib import messages
 
+
+def Profile(request):
+    """
+    Directs to user profile page 
+    """
+    return render(request, "profile.html")
+
 def Register(request):
     """
     Consume user registration input to store in user model using a POST request
