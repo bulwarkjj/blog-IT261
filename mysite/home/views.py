@@ -29,3 +29,22 @@ def Register(request):
         user.save()
         return render(request, 'login.html')   
     return render(request, "register.html")
+
+def Login(request):
+    """
+    Consume user username/password and match with database for authentication. if correct, redirect to home page else show error page 
+    """
+    if request.method=="POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect("/")
+        else:
+            messages.error(request, "Invalid Credentials")
+        return render(request, 'blog.html')   
+    return render(request, "login.html")
