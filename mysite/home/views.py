@@ -16,6 +16,24 @@ def blogs(request):
     posts = BlogPost.objects.filter().order_by('-dateTime')
     return render(request, "blog.html", {'posts':posts})
 
+@login_required(login_url = '/login')
+def add_blogs(request):
+    """
+    View for adding new blog only if user is logged in, if not than user is redirected to login
+    """
+    if request.method=="POST":
+        form = BlogPostForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            blogpost = form.save(commit=False)
+            blogpost.author = request.user
+            blogpost.save()
+            obj = form.instance
+            alert = True
+            return render(request, "add_blogs.html",{'obj':obj, 'alert':alert})
+    else:
+        form=BlogPostForm()
+    return render(request, "add_blogs.html", {'form':form})
+
 
 
 def Profile(request):
