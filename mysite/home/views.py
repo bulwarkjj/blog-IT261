@@ -8,6 +8,15 @@ from django.views.generic import UpdateView
 from django.contrib import messages
 
 
+def blogs(request):
+    """
+    Base home page for blog
+    """
+    posts = BlogPost.objects.all()
+    posts = BlogPost.objects.filter().order_by('-dateTime')
+    return render(request, "blog.html", {'posts':posts})
+
+
 
 def Profile(request):
     """
