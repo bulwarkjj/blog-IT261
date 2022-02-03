@@ -69,6 +69,20 @@ def add_blogs(request):
         form=BlogPostForm()
     return render(request, "add_blogs.html", {'form':form})
 
+class UpdatePostView(UpdateView):
+    """
+    view update
+    """
+    model = BlogPost
+    template_name = 'edit_blog_post.html'
+    fields = ['title', 'slug', 'content', 'image']
+
+def user_profile(request, myid):
+    """
+    User profile
+    """
+    post = BlogPost.objects.filter(id=myid)
+    return render(request, "user_profile.html", {'post':post})
 
 
 def Profile(request):
@@ -136,3 +150,11 @@ def Login(request):
             messages.error(request, "Invalid Credentials")
         return render(request, 'blog.html')   
     return render(request, "login.html")
+
+def Logout(request):
+    """
+    User logs out
+    """
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect('/login')
