@@ -30,6 +30,16 @@ def blogs_comments(request, slug):
         comment.save()
     return render(request, "blog_comments.html", {'post':post, 'comments':comments})
 
+def Delete_Blog_Post(request, slug):
+    """
+    User option to delete blog post 
+    """
+    posts = BlogPost.objects.get(slug=slug)
+    if request.method == "POST":
+        posts.delete()
+        return redirect('/')
+    return render(request, 'delete_blog_post.html', {'posts':posts})
+
 @login_required(login_url = '/login')
 def add_blogs(request):
     """
