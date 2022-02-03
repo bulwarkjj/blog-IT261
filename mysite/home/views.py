@@ -40,6 +40,17 @@ def Delete_Blog_Post(request, slug):
         return redirect('/')
     return render(request, 'delete_blog_post.html', {'posts':posts})
 
+def search(request):
+    """
+    search blogs
+    """
+    if request.method == "POST":
+        searched = request.POST['searched']
+        blogs = BlogPost.objects.filter(title__contains=searched)
+        return render(request, "search.html", {'searched':searched, 'blogs':blogs})
+    else:
+        return render(request, "search.html", {})
+
 @login_required(login_url = '/login')
 def add_blogs(request):
     """
