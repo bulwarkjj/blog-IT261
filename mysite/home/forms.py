@@ -7,7 +7,7 @@ class ProfileForm(forms.ModelForm):
         Form for user profile 
         """
         model = Profile
-        fields = ('phone_no', 'bio', 'facebook', 'instagram', 'linkedin', 'image', )
+        fields = ('bio', 'facebook', 'instagram', 'linkedin', 'image', )
      
         
 class BlogPostForm(forms.ModelForm):
