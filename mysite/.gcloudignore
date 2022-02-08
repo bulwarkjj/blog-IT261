@@ -1,7 +1,0 @@
-.git
-.gitignore
-__pycache__/
-/setup.cfg
-README.md
-Pipfile
-Pipfile.lock
